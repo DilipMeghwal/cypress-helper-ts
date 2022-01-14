@@ -1,0 +1,30 @@
+{
+  "name": "cypress-miro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "cypress": "^9.2.1",
+    "cypress-multi-reporters": "^1.5.0",
+    "fs-extra": "^10.0.0",
+    "mocha": "^9.1.2",
+    "mochawesome": "^6.3.1",
+    "mochawesome-merge": "^4.2.0",
+    "mochawesome-report-generator": "^5.2.0"
+  },
+  "scripts": {
+    "clean:reports": "rm -R -f cypress/reports && mkdir cypress/reports && mkdir cypress/reports/mochareports",    
+    "pretest": "npm run clean:reports",
+    "scripts": "cypress run --headed --browser chrome",
+    "combine-reports": "mochawesome-merge cypress/reports/mocha/*.json > cypress/reports/mochareports/report.json",
+    "generate-report": "marge cypress/reports/mochareports/report.json -f report -o cypress/reports/mochareports",
+    "posttest": "npm run combine-reports && npm run generate-report",
+    "test" : "npm run scripts || npm run posttest"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/node": "^17.0.8",
+    "typescript": "^4.5.4"
+  },
+  "type": "module"
+}
